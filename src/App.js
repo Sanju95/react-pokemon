@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import "./App.css";
 import PokemonList from "./Pokemon-1/PokemonList";
 import Card from "./Pokemon-1/Card";
+import Header from "./components/Header";
+import "./Pokemon-1/pokemon.css";
 
 function App() {
   const endPoint = "https://pokeapi.co/api/v2/pokemon?limit=151";
@@ -17,7 +18,7 @@ function App() {
   const getGen1Pokemons = async () => {
     let res = await axios.get(endPoint);
     let data = await res.data;
-    setPokemon(data.results.map((p) => p.name));
+    //setPokemon(data.results.map((p) => p.name));
     await getPokemonData(data.results);
     //console.log(res);
   };
@@ -38,10 +39,12 @@ function App() {
 
   return (
     <div>
-      {pokemonData.map((p, i) => {
-        return <Card key={i} pokemon={p} />;
-      })}
-      <PokemonList pokemon={pokemon} />
+      <Header />
+      <div className='pokedex__container'>
+        {pokemonData.map((p, i) => {
+          return <PokemonList key={i} pokemon={p} />;
+        })}
+      </div>
     </div>
   );
 }

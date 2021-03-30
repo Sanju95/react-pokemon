@@ -4,6 +4,7 @@ const Card = ({ pokemon }) => {
   return (
     <div>
       <ul>
+        <li>#{pokemon.id}</li>
         <li>{pokemon.name}</li>
         <li>{pokemon.weight}</li>
         <li>{pokemon.height}</li>
