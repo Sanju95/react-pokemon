@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import PokemonList from "./Pokemon-1/PokemonList";
-import Card from "./Pokemon-1/Card";
+//import Card from "./Pokemon-1/Card";
 import Header from "./components/Header";
 import "./Pokemon-1/pokemon.css";
 
 function App() {
   const endPoint = "https://pokeapi.co/api/v2/pokemon?limit=151";
-  const [pokemon, setPokemon] = useState([]);
+  //const [pokemon, setPokemon] = useState([]);
   const [pokemonData, setPokemonData] = useState([]);
   //const [loading, setLoading] = useState(true);
 

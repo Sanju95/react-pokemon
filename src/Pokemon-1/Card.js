@@ -1,6 +1,7 @@
 import React from "react";
 
-const Card = ({ pokemon }) => {
+const Card = ({ showCard, setShowCard, pokemon }) => {
+  console.log("card", pokemon);
   return (
     <div>
       <ul>
