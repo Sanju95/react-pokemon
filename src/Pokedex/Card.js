@@ -8,7 +8,7 @@ const Card = ({ showCard, setShowCard, pokemon }) => {
       setShowCard(false);
     }
   };
-  let cardStyle = `card__wrapper ${pokemon.types[0].type.name}`;
+  let cardInfoStyle = `card__info ${pokemon.types[0].type.name}`;
   return (
     <>
       {showCard ? (
@@ -25,28 +25,23 @@ const Card = ({ showCard, setShowCard, pokemon }) => {
             />
             <h1>{pokemon.name}</h1>
             <strong>{pokemon.types[0].type.name}</strong>
-            <div className='cardInfo'>
-              <p>
+            <div className={cardInfoStyle}>
+              <div className='card__info--row'>
                 <strong>Height:</strong> {pokemon.height}
-              </p>
-              <p>
                 <strong>Weight:</strong> {pokemon.weight}
-              </p>
-              <div>
-                <p>
-                  <strong>Abilities:</strong>
-                </p>
-                {pokemon.abilities.map((abi, i) => (
-                  <p key={i}>{abi.ability.name}</p>
-                ))}
               </div>
-              <p>
-                <strong>Type:</strong>
-                {pokemon.types[0].type.name}
-              </p>
+
+              <div className='card__info--row'>
+                <strong>Abilities:</strong>
+                <ul>
+                  {pokemon.abilities.map((abi, i) => (
+                    <li key={i}>{abi.ability.name}</li>
+                  ))}
+                </ul>
+              </div>
             </div>
             <div className='card__close' onClick={() => setShowCard(false)}>
-              <img src='close-btn.png' />
+              <img src='close-btn.png' alt='Close icon' />
             </div>
           </div>
         </div>
