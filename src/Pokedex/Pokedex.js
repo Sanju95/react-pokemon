@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import PokemonList from "./PokemonList";
+import axios from "../Api/axios";
 import "./pokemon.css";
 
 const Pokedex = () => {
-  const endPoint = "https://pokeapi.co/api/v2/pokemon?limit=151";
   const [pokemonData, setPokemonData] = useState([]);
   const [search, setSearch] = useState("");
   const [loading, setLoading] = useState(true);
@@ -14,18 +13,21 @@ const Pokedex = () => {
   }, []);
 
   const getGen1Pokemons = async () => {
-    let res = await axios.get(endPoint);
-    let data = res.data;
-    await getPokemonData(data.results);
+    const request = await axios.get().catch((err) => setLoading(true));
+    getPokemonData(request.data.results);
   };
 
   const getPokemonData = async (results) => {
-    let res = await Promise.all(results.map((p) => axios.get(p.url)));
-    let data = res.map((p) => p.data);
-
-    console.log(data);
-    setLoading(false);
+    const request = await Promise.all(
+      results.map(
+        async (p) => await axios.get(p.url).catch((err) => setLoading(true)),
+      ),
+    );
+    const data = request.map((p) => p.data);
+    request ? setLoading(false) : setLoading(true);
     setPokemonData(data);
+
+    //console.log(data);
   };
 
   const filteredPokemons = pokemonData.filter((pokemon) => {
@@ -42,9 +44,10 @@ const Pokedex = () => {
         />
       </div>
 
-      {loading ? <div className='loader'></div> : null}
+      {loading && <div className='loader'></div>}
 
       <div className='pokedex__container'>
+        {search && filteredPokemons.length === 0 && <h2>No pokemons found</h2>}
         {filteredPokemons.map((pokemon, i) => {
           return <PokemonList key={i} pokemon={pokemon} />;
         })}
